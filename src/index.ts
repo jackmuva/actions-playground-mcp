@@ -98,13 +98,12 @@ async function main() {
 	});
 
 	app.post("/messages", async (req, res) => {
+		Logger.debug("transports...", transports);
 		Logger.debug("Received POST request for message endpoint");
 		Logger.debug(req.headers);
 		Logger.debug(req.query);
-		Logger.debug(req);
 		const sessionId = req.query.sessionId as string;
 		const transportPayload = transports[sessionId];
-		Logger.debug("Received message for sessionId", sessionId);
 
 		if (sessionId && transportPayload) {
 			try {
@@ -122,7 +121,6 @@ async function main() {
 
 	app.post("/health", (req, res) => {
 		Logger.debug("hit health endpoint");
-		Logger.debug(req);
 		const healthStatus = {
 			status: "healthy",
 			timestamp: new Date().toISOString(),
