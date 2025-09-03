@@ -121,6 +121,8 @@ async function main() {
 	});
 
 	app.post("/health", (req, res) => {
+		Logger.debug("hit health endpoint");
+		Logger.debug(req);
 		const healthStatus = {
 			status: "healthy",
 			timestamp: new Date().toISOString(),
