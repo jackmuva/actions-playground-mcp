@@ -98,6 +98,10 @@ async function main() {
 	});
 
 	app.post("/messages", async (req, res) => {
+		Logger.debug("Received POST request for message endpoint");
+		Logger.debug(req.headers);
+		Logger.debug(req.query);
+		Logger.debug(req);
 		const sessionId = req.query.sessionId as string;
 		const transportPayload = transports[sessionId];
 		Logger.debug("Received message for sessionId", sessionId);
