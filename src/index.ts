@@ -87,6 +87,7 @@ async function main() {
   app.post("/messages", async (req, res) => {
     const sessionId = req.query.sessionId as string;
     const transportPayload = transports[sessionId];
+    Logger.debug("Received message for sessionId", sessionId);
 
     if (sessionId && transportPayload) {
       try {
@@ -100,6 +101,21 @@ async function main() {
 
     console.error("No transport found for sessionId", sessionId);
     return res.status(404).json({ error: "No transport found for sessionId" });
+  });
+
+  app.get("/health", (req, res) => {
+    const healthStatus = {
+      status: "healthy",
+      timestamp: new Date().toISOString(),
+      uptime: process.uptime(),
+      version: "1.0.0",
+      environment: envs.NODE_ENV,
+      activeConnections: Object.keys(transports).length,
+      integrations: integrations.length,
+      tools: extraTools.length,
+    };
+
+    return res.status(200).json(healthStatus);
   });
 
   app.get("/setup", async (req, res) => {
