@@ -77,6 +77,12 @@ Start the server using:
 npm run start
 ```
 
+For docker:
+```bash
+docker built -t actions-playground-mcp .
+docker run -p 3001:3001 --env-file=.env actions-playground-mcp
+```
+
 The server will start on `http://localhost:3001` by default.
 
 ## Client Configuration
